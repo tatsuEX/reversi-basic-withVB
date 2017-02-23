@@ -17,4 +17,9 @@
         End With
 
     End Sub
+
+    Private Sub MenuQuit_Click(sender As Object, e As EventArgs) Handles MenuQuit.Click, Me.FormClosed
+        Me.Dispose()
+        Environment.Exit(0)
+    End Sub
 End Class
