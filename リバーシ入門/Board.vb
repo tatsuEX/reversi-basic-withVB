@@ -19,7 +19,7 @@ Public Class Board
         UPPER_LEFT = 128
     End Enum
 
-    ' 配列は要素数に注意！
+    ' 配列は要素数に注意！ なお、宣言時に 0 で初期化される模様
     Private RowBoard(,) As Integer = New Integer(BOARD_SIZE + 1, BOARD_SIZE + 1) {}
     Private turns As Integer
     Private currentColor As Integer
@@ -31,11 +31,10 @@ Public Class Board
 
     Private discs As New ColorStroage(Of Integer)
 
-    ' 盤面を初期化する
-    Private Sub Init()
-        ' ターン数と現在のプレイヤー
-        turns = 0
-        currentColor = Disc.SquareState.BLACK
+    ' *****************************************************************
+    ' ボードの初期化
+    Public Sub init()
+        ' RowBoard は宣言とともに 0 で初期化
 
         Dim MaxRow As Integer = RowBoard.GetUpperBound(0)
         ' 壁の初期配置
@@ -44,20 +43,36 @@ Public Class Board
             RowBoard(i, 0) = Disc.SquareState.WALL
             RowBoard(MaxRow, i) = Disc.SquareState.WALL
             RowBoard(i, MaxRow) = Disc.SquareState.WALL
-        Next
+        Next i
+
         ' 石の初期配置
         RowBoard(4, 4) = Disc.SquareState.WHITE
         RowBoard(5, 5) = Disc.SquareState.WHITE
         RowBoard(4, 5) = Disc.SquareState.BLACK
         RowBoard(5, 4) = Disc.SquareState.BLACK
+
+        ' 石数の初期設定
         discs.Data(Disc.SquareState.WHITE) = 2
         discs.Data(Disc.SquareState.BLACK) = 2
+        discs.Data(Disc.SquareState.EMPTY) = BOARD_SIZE * BOARD_SIZE - 4
+
+        ' ターン数と先手のプレイヤー
+        turns = 0
+        currentColor = Disc.SquareState.BLACK
+
+        ' update をすべて消去
+        updateLog.Clear()
+
+        initMovable()
     End Sub
 
     ' *****************************************************************
     ' コンストラクタ
     Public Sub New()
-        Init()
+        For i As Integer = 0 To MAX_TURNS
+            MovablePos(i) = New ArrayList()
+        Next i
+        init()
     End Sub
 
 #Region "Methods"
