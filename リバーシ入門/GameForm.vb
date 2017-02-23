@@ -13,7 +13,7 @@
             .BorderStyle = BorderStyle.None
             .Width = 403
             .Height = 403
-            gu = New GraphicUtility(PBBoard, 0, .Width, 0, .Height)
+            gu = New GraphicUtility(PBBoard, rowBoard, 0, .Width, 0, .Height)
         End With
 
     End Sub
