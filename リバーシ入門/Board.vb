@@ -237,8 +237,8 @@ Public Class Board
     ' Point で指定したマス目座標に石を打つ
     ' @return   True : success,     False : failed
     Public Function move(p As Point) As Boolean
-        If p.X < 0 OrElse p.X >= BOARD_SIZE Then Return False
-        If p.Y < 0 OrElse p.Y >= BOARD_SIZE Then Return False
+        If p.X < 0 OrElse p.X >= BOARD_SIZE + 1 Then Return False
+        If p.Y < 0 OrElse p.Y >= BOARD_SIZE + 1 Then Return False
         If MovableDir(turns, p.X, p.Y) = Direction.NONE Then Return False
 
         ' 裏返しとログの更新
@@ -383,8 +383,8 @@ Public Class Board
 
         MovablePos(turns).Clear()
 
-        For y As Integer = 0 To BOARD_SIZE - 1
-            For x As Integer = 0 To BOARD_SIZE - 1
+        For y As Integer = 0 To BOARD_SIZE
+            For x As Integer = 0 To BOARD_SIZE
                 disc = New Disc(x, y, currentColor)
                 dir = checkMobility(disc)
                 If dir <> Direction.NONE Then

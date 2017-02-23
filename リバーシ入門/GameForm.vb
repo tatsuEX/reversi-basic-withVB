@@ -17,18 +17,40 @@
             gu = New GraphicUtility(PBBoard, rowBoard, 0, .Width, 0, .Height)
         End With
 
+        ShowCount()
+        Game()
     End Sub
 
     ' *****************************************************************
     ' クリック座標からボード位置を取得
     Private Sub PBBoard_MouseClick(sender As Object, e As MouseEventArgs) Handles PBBoard.MouseClick
         currentPos = gu.ConvertClickToBoardPos(e.X, e.Y)
+        If board.move(currentPos) Then
+            rowBoard = board.GetRowBoard
+            gu.RewriteBoard(rowBoard)
+            ShowCount()
+        End If
+    End Sub
+
+    Private Sub ShowCount()
+        TextBoxBlack.Text = board.countDisc(Disc.SquareState.BLACK)
+        TextBoxWhite.Text = board.countDisc(Disc.SquareState.WHITE)
+        If board.getCurrentColor = Disc.SquareState.BLACK Then
+            TextBoxBlack.BackColor = Color.White
+            TextBoxWhite.BackColor = Color.Gray
+        Else
+            TextBoxBlack.BackColor = Color.Gray
+            TextBoxWhite.BackColor = Color.White
+        End If
     End Sub
 
     ' *****************************************************************
     ' ゲーム本体
     Private Sub Game()
 
+        If board.isGameOver() Then
+            Exit Sub
+        End If
     End Sub
 
     Private Sub MenuQuit_Click(sender As Object, e As EventArgs) Handles MenuQuit.Click, Me.FormClosed

@@ -110,8 +110,12 @@ Public Class GraphicUtility
 
     ' *****************************************************************
     ' ボードの状態を更新
-    Public Sub RewriteBoard(board As Integer(,))
+    Public Sub RewriteBoard(board As Integer(,), Optional draw As Boolean = True)
         rowBoard = board
+        If draw Then
+            UpdateBoard()
+            MyBase.Refresh()
+        End If
     End Sub
 
     ' *****************************************************************
