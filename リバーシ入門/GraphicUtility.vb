@@ -32,11 +32,15 @@ Public Class GraphicUtility
         DrawBoard()
     End Sub
 
+    ' *****************************************************************
+    ' 前面緑に塗りつぶし
     Private Sub FillBackColor()
         SetForeColor(Color.FromArgb(30, 160, 80))
         MyBase.Clear()
     End Sub
 
+    ' *****************************************************************
+    ' 縦横の直線（+チョボ点）
     Private Sub DrawLines()
         Dim sqwid As Integer = 1
         ' 縦
@@ -66,6 +70,8 @@ Public Class GraphicUtility
         FillCircle(wid * 6 + 1, wid * 6 + 1, 5, Color.Black)
     End Sub
 
+    ' *****************************************************************
+    ' マス目の状態に応じて駒等の描画
     Private Sub DrawDisc(col As Integer, row As Integer)
         Dim halfWid As Integer = wid \ 2
         Dim x As Integer = col * wid - halfWid
@@ -83,6 +89,8 @@ Public Class GraphicUtility
         End Select
     End Sub
 
+    ' *****************************************************************
+    ' 盤全体に駒等を描画
     Public Sub DrawBoard()
         For i As Integer = 1 To rows
             For j As Integer = 1 To rows
@@ -100,7 +108,19 @@ Public Class GraphicUtility
         MyBase.FillCircle(x, y, r)
     End Sub
 
+    ' *****************************************************************
+    ' ボードの状態を更新
     Public Sub RewriteBoard(board As Integer(,))
         rowBoard = board
     End Sub
+
+    ' *****************************************************************
+    ' クリック座標からボード上の位置を取得
+    Public Function ConvertClickToBoardPos(x As Integer, y As Integer) As System.Windows.Point
+        Dim point As System.Windows.Point
+        point.X = x \ wid + 1
+        point.Y = y \ wid + 1
+
+        Return point
+    End Function
 End Class

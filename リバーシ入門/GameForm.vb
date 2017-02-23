@@ -1,6 +1,7 @@
 ﻿Public Class GameForm
     Private board As Board
     Private rowBoard As Integer(,)
+    Private currentPos As System.Windows.Point
 
     Private gu As GraphicUtility
 
@@ -15,6 +16,18 @@
             .Height = 403
             gu = New GraphicUtility(PBBoard, rowBoard, 0, .Width, 0, .Height)
         End With
+
+    End Sub
+
+    ' *****************************************************************
+    ' クリック座標からボード位置を取得
+    Private Sub PBBoard_MouseClick(sender As Object, e As MouseEventArgs) Handles PBBoard.MouseClick
+        currentPos = gu.ConvertClickToBoardPos(e.X, e.Y)
+    End Sub
+
+    ' *****************************************************************
+    ' ゲーム本体
+    Private Sub Game()
 
     End Sub
 
