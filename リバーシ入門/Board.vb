@@ -81,13 +81,55 @@ Public Class Board
     ' *****************************************************************
 
     ' GET -------------------------------------------------------------
-    ' 
     Public Function GetRowBoard() As Integer(,)
         Return RowBoard
     End Function
 
+    ' *****************************************************************
+    ' 指定した色の石の数を数える
+    Public Function countDisc(col As Integer) As Integer
+        Return discs.Data(col)
+    End Function
+
+    ' *****************************************************************
+    ' 指定された位置の色
+    Public Function getColor(p As Point) As Integer
+        Return RowBoard(p.X, p.Y)
+    End Function
+
+    Public Function getColor(x As Integer, y As Integer) As Integer
+        Return RowBoard(x, y)
+    End Function
+
+    ' *****************************************************************
+    ' 石を打てる座標のリストを得る
+    Public Function getMovablePos() As ArrayList
+        Return MovablePos(turns)
+    End Function
+
+    ' *****************************************************************
+    ' 直前の手で打った石と裏返した石の履歴
+    Public Function getUpdate() As ArrayList
+        If updateLog Is Nothing Then
+            Return New ArrayList
+        Else
+            Return updateLog.Item(updateLog.Count - 1)
+        End If
+    End Function
+
+    ' *****************************************************************
+    ' 現在の手番の色
+    Public Function getCurrentColor() As Integer
+        Return currentColor
+    End Function
+
+    ' *****************************************************************
+    ' 現在の手数
+    Public Function getTurns() As Integer
+        Return turns
+    End Function
+
     ' SET -------------------------------------------------------------
-    ' 
     Public Sub SetRowBoard(x As Integer, y As Integer, state As Integer)
         RowBoard(x, y) = state
     End Sub
