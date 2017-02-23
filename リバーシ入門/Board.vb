@@ -19,16 +19,17 @@ Public Class Board
         UPPER_LEFT = 128
     End Enum
 
-    Private RawBoard(,) As Integer = New Integer(BOARD_SIZE + 2, BOARD_SIZE + 2) {}
+    ' 配列は要素数に注意！
+    Private RowBoard(,) As Integer = New Integer(BOARD_SIZE + 1, BOARD_SIZE + 1) {}
     Private turns As Integer
     Private currentColor As Integer
 
     Private updateLog As New ArrayList()
 
-    Private MovableDir(,,) As Integer = New Integer(MAX_TURNS + 1, BOARD_SIZE + 2, BOARD_SIZE + 2) {}
-    Private MovablePos() As ArrayList = New ArrayList(MAX_TURNS + 1) {}
+    Private MovableDir(,,) As Integer = New Integer(MAX_TURNS, BOARD_SIZE + 1, BOARD_SIZE + 1) {}
+    Private MovablePos() As ArrayList = New ArrayList(MAX_TURNS) {}
 
-    Private discs As ColorStroage(Of Integer)
+    Private discs As New ColorStroage(Of Integer)
 
     ' 盤面を初期化する
     Private Sub Init()
@@ -36,19 +37,19 @@ Public Class Board
         turns = 0
         currentColor = Disc.SquareState.BLACK
 
-        Dim MaxRow As Integer = RawBoard.GetUpperBound(0)
+        Dim MaxRow As Integer = RowBoard.GetUpperBound(0)
         ' 壁の初期配置
         For i As Integer = 0 To MaxRow
-            RawBoard(0, i) = Disc.SquareState.WALL
-            RawBoard(i, 0) = Disc.SquareState.WALL
-            RawBoard(MaxRow, i) = Disc.SquareState.WALL
-            RawBoard(i, MaxRow) = Disc.SquareState.WALL
+            RowBoard(0, i) = Disc.SquareState.WALL
+            RowBoard(i, 0) = Disc.SquareState.WALL
+            RowBoard(MaxRow, i) = Disc.SquareState.WALL
+            RowBoard(i, MaxRow) = Disc.SquareState.WALL
         Next
         ' 石の初期配置
-        RawBoard(4, 4) = Disc.SquareState.WHITE
-        RawBoard(5, 5) = Disc.SquareState.WHITE
-        RawBoard(4, 5) = Disc.SquareState.BLACK
-        RawBoard(5, 4) = Disc.SquareState.BLACK
+        RowBoard(4, 4) = Disc.SquareState.WHITE
+        RowBoard(5, 5) = Disc.SquareState.WHITE
+        RowBoard(4, 5) = Disc.SquareState.BLACK
+        RowBoard(5, 4) = Disc.SquareState.BLACK
         discs.Data(Disc.SquareState.WHITE) = 2
         discs.Data(Disc.SquareState.BLACK) = 2
     End Sub
@@ -64,6 +65,15 @@ Public Class Board
     ' 各種メソッド
     ' *****************************************************************
 
+    ' GET -------------------------------------------------------------
+    ' 
+    Public Function GetRowBoard() As Integer(,)
+        Return RowBoard
+    End Function
+
+    ' SET -------------------------------------------------------------
+    ' 
+
     ' *****************************************************************
     ' 打てる石と返せる石の方向
     Private Function checkMobility(ByRef disc As Disc) As Integer
@@ -72,90 +82,90 @@ Public Class Board
         Dim x, y As Integer
 
         ' 空きマス判定
-        If RawBoard(pos.X, pos.Y) <> Disc.SquareState.EMPTY Then Return Direction.NONE
+        If RowBoard(pos.X, pos.Y) <> Disc.SquareState.EMPTY Then Return Direction.NONE
 
 #Region "Directions"
 #Region "UPPER"
-        If RawBoard(pos.X, pos.Y - 1) = -disc.Color() Then
+        If RowBoard(pos.X, pos.Y - 1) = -disc.Color() Then
             x = pos.X : y = pos.Y - 2
-            While RawBoard(x, y) = -disc.Color()
+            While RowBoard(x, y) = -disc.Color()
                 y -= 1
             End While
-            If RawBoard(x, y) = disc.Color() Then dir = dir Or Direction.UPPER
+            If RowBoard(x, y) = disc.Color() Then dir = dir Or Direction.UPPER
         End If
 #End Region
 
 #Region "LOWER"
-        If RawBoard(pos.X, pos.Y + 1) = -disc.Color() Then
+        If RowBoard(pos.X, pos.Y + 1) = -disc.Color() Then
             x = pos.X : y = pos.Y + 2
-            While RawBoard(x, y) = -disc.Color()
+            While RowBoard(x, y) = -disc.Color()
                 y += 1
             End While
-            If RawBoard(x, y) = disc.Color() Then dir = dir Or Direction.LOWER
+            If RowBoard(x, y) = disc.Color() Then dir = dir Or Direction.LOWER
         End If
 #End Region
 
 #Region "LEFT"
-        If RawBoard(pos.X - 1, pos.Y) = -disc.Color() Then
+        If RowBoard(pos.X - 1, pos.Y) = -disc.Color() Then
             x = pos.X - 2 : y = pos.Y
-            While RawBoard(x, y) = -disc.Color()
+            While RowBoard(x, y) = -disc.Color()
                 x -= 1
             End While
-            If RawBoard(x, y) = disc.Color() Then dir = dir Or Direction.LEFT
+            If RowBoard(x, y) = disc.Color() Then dir = dir Or Direction.LEFT
         End If
 #End Region
 
 #Region "RIGHT"
-        If RawBoard(pos.X + 1, pos.Y) = -disc.Color() Then
+        If RowBoard(pos.X + 1, pos.Y) = -disc.Color() Then
             x = pos.X + 2 : y = pos.Y
-            While RawBoard(x, y) = -disc.Color()
+            While RowBoard(x, y) = -disc.Color()
                 x += 1
             End While
-            If RawBoard(x, y) = disc.Color() Then dir = dir Or Direction.RIGHT
+            If RowBoard(x, y) = disc.Color() Then dir = dir Or Direction.RIGHT
         End If
 #End Region
 
 #Region "UPPER_RIGHT"
-        If RawBoard(pos.X + 1, pos.Y - 1) = -disc.Color() Then
+        If RowBoard(pos.X + 1, pos.Y - 1) = -disc.Color() Then
             x = pos.X + 2 : y = pos.Y - 2
-            While RawBoard(x, y) = -disc.Color()
+            While RowBoard(x, y) = -disc.Color()
                 x += 1
                 y -= 1
             End While
-            If RawBoard(x, y) = disc.Color() Then dir = dir Or Direction.UPPER_RIGHT
+            If RowBoard(x, y) = disc.Color() Then dir = dir Or Direction.UPPER_RIGHT
         End If
 #End Region
 
 #Region "UPPER_LEFT"
-        If RawBoard(pos.X - 1, pos.Y - 1) = -disc.Color() Then
+        If RowBoard(pos.X - 1, pos.Y - 1) = -disc.Color() Then
             x = pos.X - 2 : y = pos.Y - 2
-            While RawBoard(x, y) = -disc.Color()
+            While RowBoard(x, y) = -disc.Color()
                 x -= 1
                 y -= 1
             End While
-            If RawBoard(x, y) = disc.Color() Then dir = dir Or Direction.UPPER_LEFT
+            If RowBoard(x, y) = disc.Color() Then dir = dir Or Direction.UPPER_LEFT
         End If
 #End Region
 
 #Region "LOWER_RIGHT"
-        If RawBoard(pos.X + 1, pos.Y + 1) = -disc.Color() Then
+        If RowBoard(pos.X + 1, pos.Y + 1) = -disc.Color() Then
             x = pos.X + 2 : y = pos.Y + 2
-            While RawBoard(x, y) = -disc.Color()
+            While RowBoard(x, y) = -disc.Color()
                 x += 1
                 y += 1
             End While
-            If RawBoard(x, y) = disc.Color() Then dir = dir Or Direction.LOWER_RIGHT
+            If RowBoard(x, y) = disc.Color() Then dir = dir Or Direction.LOWER_RIGHT
         End If
 #End Region
 
 #Region "LOWER_LEFT"
-        If RawBoard(pos.X - 1, pos.Y + 1) = -disc.Color() Then
+        If RowBoard(pos.X - 1, pos.Y + 1) = -disc.Color() Then
             x = pos.X - 2 : y = pos.Y + 2
-            While RawBoard(x, y) = -disc.Color()
+            While RowBoard(x, y) = -disc.Color()
                 x -= 1
                 y += 1
             End While
-            If RawBoard(x, y) = disc.Color() Then dir = dir Or Direction.LOWER_LEFT
+            If RowBoard(x, y) = disc.Color() Then dir = dir Or Direction.LOWER_LEFT
         End If
 #End Region
 #End Region
@@ -192,15 +202,15 @@ Public Class Board
         Dim update As ArrayList = New ArrayList()
 
         ' 今打った石を反映させる
-        RawBoard(p.X, p.Y) = currentColor
+        RowBoard(p.X, p.Y) = currentColor
         update.Add(New Disc(p.X, p.Y, currentColor))
 
 #Region "Directions"
 #Region "UPPER"
         If (dir And Direction.UPPER) <> Direction.NONE Then
             y = p.Y - 1
-            While RawBoard(p.X, y) <> currentColor
-                RawBoard(p.X, y) = currentColor
+            While RowBoard(p.X, y) <> currentColor
+                RowBoard(p.X, y) = currentColor
                 update.Add(New Disc(p.X, y, currentColor))
                 y -= 1
             End While
@@ -210,8 +220,8 @@ Public Class Board
 #Region "LOWER"
         If (dir And Direction.LOWER) <> Direction.NONE Then
             y = p.Y + 1
-            While RawBoard(p.X, y) <> currentColor
-                RawBoard(p.X, y) = currentColor
+            While RowBoard(p.X, y) <> currentColor
+                RowBoard(p.X, y) = currentColor
                 update.Add(New Disc(p.X, y, currentColor))
                 y += 1
             End While
@@ -221,8 +231,8 @@ Public Class Board
 #Region "RIGHT"
         If (dir And Direction.RIGHT) <> Direction.NONE Then
             x = p.X + 1
-            While RawBoard(x, p.Y) <> currentColor
-                RawBoard(x, p.Y) = currentColor
+            While RowBoard(x, p.Y) <> currentColor
+                RowBoard(x, p.Y) = currentColor
                 update.Add(New Disc(x, p.Y, currentColor))
                 x += 1
             End While
@@ -232,8 +242,8 @@ Public Class Board
 #Region "LEFT"
         If (dir And Direction.LEFT) <> Direction.NONE Then
             x = p.X - 1
-            While RawBoard(x, p.Y) <> currentColor
-                RawBoard(x, p.Y) = currentColor
+            While RowBoard(x, p.Y) <> currentColor
+                RowBoard(x, p.Y) = currentColor
                 update.Add(New Disc(x, p.Y, currentColor))
                 x -= 1
             End While
@@ -244,8 +254,8 @@ Public Class Board
         If (dir And Direction.UPPER_RIGHT) <> Direction.NONE Then
             x = p.X + 1
             y = p.Y - 1
-            While RawBoard(x, y) <> currentColor
-                RawBoard(x, y) = currentColor
+            While RowBoard(x, y) <> currentColor
+                RowBoard(x, y) = currentColor
                 update.Add(New Disc(x, y, currentColor))
                 x += 1
                 y -= 1
@@ -257,8 +267,8 @@ Public Class Board
         If (dir And Direction.UPPER_LEFT) <> Direction.NONE Then
             x = p.X - 1
             y = p.Y - 1
-            While RawBoard(x, y) <> currentColor
-                RawBoard(x, y) = currentColor
+            While RowBoard(x, y) <> currentColor
+                RowBoard(x, y) = currentColor
                 update.Add(New Disc(x, y, currentColor))
                 x -= 1
                 y -= 1
@@ -270,8 +280,8 @@ Public Class Board
         If (dir And Direction.LOWER_RIGHT) <> Direction.NONE Then
             x = p.X + 1
             y = p.Y + 1
-            While RawBoard(x, y) <> currentColor
-                RawBoard(x, y) = currentColor
+            While RowBoard(x, y) <> currentColor
+                RowBoard(x, y) = currentColor
                 update.Add(New Disc(x, y, currentColor))
                 x += 1
                 y += 1
@@ -283,8 +293,8 @@ Public Class Board
         If (dir And Direction.LOWER_LEFT) <> Direction.NONE Then
             x = p.X - 1
             y = p.Y + 1
-            While RawBoard(x, y) <> currentColor
-                RawBoard(x, y) = currentColor
+            While RowBoard(x, y) <> currentColor
+                RowBoard(x, y) = currentColor
                 update.Add(New Disc(x, y, currentColor))
                 x -= 1
                 y += 1
@@ -387,10 +397,10 @@ Public Class Board
             turns -= 1
             ' 石を元に戻す
             Dim p As Point = update.Item(0)
-            RawBoard(p.X, p.Y) = Disc.SquareState.EMPTY
+            RowBoard(p.X, p.Y) = Disc.SquareState.EMPTY
             For i As Integer = 1 To update.Count - 1
                 p = update.Item(i)
-                RawBoard(p.X, p.Y) = -currentColor
+                RowBoard(p.X, p.Y) = -currentColor
             Next i
         End If
         Return True
