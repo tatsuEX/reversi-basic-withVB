@@ -73,6 +73,9 @@ Public Class Board
 
     ' SET -------------------------------------------------------------
     ' 
+    Public Sub SetRowBoard(x As Integer, y As Integer, state As Integer)
+        RowBoard(x, y) = state
+    End Sub
 
     ' *****************************************************************
     ' 打てる石と返せる石の方向

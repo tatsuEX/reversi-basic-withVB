@@ -1,5 +1,8 @@
 ﻿Imports GraphicLibrary.MyGraphicTools
 
+' *****************************************************************
+' ボードを描画するクラス
+' *****************************************************************
 Public Class GraphicUtility
     Inherits GraphicTools
     Private rows As Integer = Board.BOARD_SIZE
@@ -7,6 +10,9 @@ Public Class GraphicUtility
     Private maxWid As Double
     Private rowBoard As Integer(,)
 
+    ' *****************************************************************
+    ' コンストラクタ
+    ' *****************************************************************
     Public Sub New(ByRef picture As PictureBox, board As Integer(,), minX As Double,
                    maxX As Double, minY As Double, maxY As Double,
                    Optional notBMP As Boolean = False,
@@ -15,10 +21,12 @@ Public Class GraphicUtility
         rowBoard = board
         maxWid = picture.Width
         wid = maxWid \ rows
-        Init()
+        UpdateBoard()
     End Sub
 
-    Private Sub Init()
+    ' *****************************************************************
+    ' 盤面の初期化・更新処理
+    Public Sub UpdateBoard()
         FillBackColor()
         DrawLines()
         DrawBoard()
