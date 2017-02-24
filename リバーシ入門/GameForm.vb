@@ -53,6 +53,19 @@
         End If
     End Sub
 
+    Private Sub MenuNewGame_Click(sender As Object, e As EventArgs) Handles MenuNewGame.Click
+        Dim dr As DialogResult
+        If Not board.isGameOver() Then
+            dr = MessageBox.Show("中断して新しいゲームを始めますか？", "確認", MessageBoxButtons.YesNo)
+        End If
+        If dr = DialogResult.Yes Then
+            board.init()
+            rowBoard = board.GetRowBoard()
+            gu.RewriteBoard(rowBoard)
+            ShowCount()
+        End If
+    End Sub
+
     Private Sub MenuQuit_Click(sender As Object, e As EventArgs) Handles MenuQuit.Click, Me.FormClosed
         Me.Dispose()
         Environment.Exit(0)

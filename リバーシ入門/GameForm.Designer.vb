@@ -28,6 +28,7 @@ Partial Class GameForm
         Me.MenuQuit = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextBoxBlack = New System.Windows.Forms.TextBox()
         Me.TextBoxWhite = New System.Windows.Forms.TextBox()
+        Me.MenuNewGame = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.PBBoard, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -52,7 +53,7 @@ Partial Class GameForm
         '
         'ファイルFToolStripMenuItem
         '
-        Me.ファイルFToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuQuit})
+        Me.ファイルFToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuNewGame, Me.MenuQuit})
         Me.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem"
         Me.ファイルFToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
         Me.ファイルFToolStripMenuItem.Text = "ファイル(&F)"
@@ -61,7 +62,7 @@ Partial Class GameForm
         '
         Me.MenuQuit.Name = "MenuQuit"
         Me.MenuQuit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Q), System.Windows.Forms.Keys)
-        Me.MenuQuit.Size = New System.Drawing.Size(188, 26)
+        Me.MenuQuit.Size = New System.Drawing.Size(228, 26)
         Me.MenuQuit.Text = "終了(&Q)"
         '
         'TextBoxBlack
@@ -85,6 +86,13 @@ Partial Class GameForm
         Me.TextBoxWhite.Size = New System.Drawing.Size(100, 47)
         Me.TextBoxWhite.TabIndex = 3
         Me.TextBoxWhite.TabStop = False
+        '
+        'MenuNewGame
+        '
+        Me.MenuNewGame.Name = "MenuNewGame"
+        Me.MenuNewGame.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
+        Me.MenuNewGame.Size = New System.Drawing.Size(228, 26)
+        Me.MenuNewGame.Text = "新しいゲーム(&N)"
         '
         'GameForm
         '
@@ -112,4 +120,5 @@ Partial Class GameForm
     Friend WithEvents MenuQuit As ToolStripMenuItem
     Friend WithEvents TextBoxBlack As TextBox
     Friend WithEvents TextBoxWhite As TextBox
+    Friend WithEvents MenuNewGame As ToolStripMenuItem
 End Class

@@ -35,6 +35,7 @@ Public Class Board
     ' ボードの初期化
     Public Sub init()
         ' RowBoard は宣言とともに 0 で初期化
+        RowBoard = New Integer(BOARD_SIZE + 1, BOARD_SIZE + 1) {}
 
         Dim MaxRow As Integer = RowBoard.GetUpperBound(0)
         ' 壁の初期配置
