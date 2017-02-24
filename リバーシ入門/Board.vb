@@ -136,6 +136,25 @@ Public Class Board
     End Sub
 
     ' *****************************************************************
+    ' 打てる石の位置を設定
+    Public Sub SetMovablePos()
+        If turns > 0 Then
+            For i As Integer = 0 To MovablePos(turns - 1).Count - 1
+                Dim disc As Disc = MovablePos(turns - 1).Item(i)
+                Dim p As System.Windows.Point = disc.RPoint()
+                If RowBoard(p.X, p.Y) = Disc.SquareState.ABLE Then
+                    SetRowBoard(p.X, p.Y, Disc.SquareState.EMPTY)
+                End If
+            Next i
+        End If
+        For i As Integer = 0 To MovablePos(turns).Count - 1
+            Dim disc As Disc = MovablePos(turns).Item(i)
+            Dim p As System.Windows.Point = disc.RPoint()
+            SetRowBoard(p.X, p.Y, Disc.SquareState.ABLE)
+        Next i
+    End Sub
+
+    ' *****************************************************************
     ' 打てる石と返せる石の方向
     Private Function checkMobility(ByRef disc As Disc) As Integer
         Dim pos As Point = disc.RPoint()

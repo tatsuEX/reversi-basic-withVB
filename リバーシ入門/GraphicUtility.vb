@@ -24,6 +24,27 @@ Public Class GraphicUtility
         UpdateBoard()
     End Sub
 
+    ' --------------------------------------
+    ' 現在の手番専用
+    Public Sub ShowCurrentPlayer(crt As Integer)
+        Dim c As Double = maxWid / 2
+        FillBackColor()
+        DrawCurrentDisc(c, c, crt)
+        Refresh()
+    End Sub
+
+    Private Sub DrawCurrentDisc(x As Double, y As Double, crt As Integer)
+        Dim r As Integer = maxWid * 3 \ 8
+        Select Case crt
+            Case Disc.SquareState.BLACK
+                FillCircle(x, y + 2, r, Color.White)
+                FillCircle(x, y - 2, r, Color.Black)
+            Case Disc.SquareState.WHITE
+                FillCircle(x, y + 2, r, Color.Black)
+                FillCircle(x, y - 2, r, Color.White)
+        End Select
+    End Sub
+
     ' *****************************************************************
     ' 盤面の初期化・更新処理
     Public Sub UpdateBoard()

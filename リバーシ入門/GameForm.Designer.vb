@@ -29,13 +29,17 @@ Partial Class GameForm
         Me.TextBoxBlack = New System.Windows.Forms.TextBox()
         Me.TextBoxWhite = New System.Windows.Forms.TextBox()
         Me.MenuNewGame = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LabelPlayer1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.PBCurrentPlayer = New System.Windows.Forms.PictureBox()
         CType(Me.PBBoard, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.PBCurrentPlayer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PBBoard
         '
-        Me.PBBoard.Location = New System.Drawing.Point(56, 136)
+        Me.PBBoard.Location = New System.Drawing.Point(56, 168)
         Me.PBBoard.Name = "PBBoard"
         Me.PBBoard.Size = New System.Drawing.Size(100, 50)
         Me.PBBoard.TabIndex = 0
@@ -68,24 +72,26 @@ Partial Class GameForm
         'TextBoxBlack
         '
         Me.TextBoxBlack.BackColor = System.Drawing.Color.White
-        Me.TextBoxBlack.Font = New System.Drawing.Font("MS UI Gothic", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.TextBoxBlack.Location = New System.Drawing.Point(32, 56)
+        Me.TextBoxBlack.Font = New System.Drawing.Font("MS UI Gothic", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.TextBoxBlack.Location = New System.Drawing.Point(48, 72)
         Me.TextBoxBlack.Name = "TextBoxBlack"
         Me.TextBoxBlack.ReadOnly = True
-        Me.TextBoxBlack.Size = New System.Drawing.Size(100, 47)
+        Me.TextBoxBlack.Size = New System.Drawing.Size(100, 67)
         Me.TextBoxBlack.TabIndex = 2
         Me.TextBoxBlack.TabStop = False
+        Me.TextBoxBlack.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TextBoxWhite
         '
         Me.TextBoxWhite.BackColor = System.Drawing.Color.White
-        Me.TextBoxWhite.Font = New System.Drawing.Font("MS UI Gothic", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.TextBoxWhite.Location = New System.Drawing.Point(520, 64)
+        Me.TextBoxWhite.Font = New System.Drawing.Font("MS UI Gothic", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.TextBoxWhite.Location = New System.Drawing.Point(496, 72)
         Me.TextBoxWhite.Name = "TextBoxWhite"
         Me.TextBoxWhite.ReadOnly = True
-        Me.TextBoxWhite.Size = New System.Drawing.Size(100, 47)
+        Me.TextBoxWhite.Size = New System.Drawing.Size(100, 67)
         Me.TextBoxWhite.TabIndex = 3
         Me.TextBoxWhite.TabStop = False
+        Me.TextBoxWhite.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'MenuNewGame
         '
@@ -94,11 +100,40 @@ Partial Class GameForm
         Me.MenuNewGame.Size = New System.Drawing.Size(228, 26)
         Me.MenuNewGame.Text = "新しいゲーム(&N)"
         '
+        'LabelPlayer1
+        '
+        Me.LabelPlayer1.Location = New System.Drawing.Point(48, 48)
+        Me.LabelPlayer1.Name = "LabelPlayer1"
+        Me.LabelPlayer1.Size = New System.Drawing.Size(100, 23)
+        Me.LabelPlayer1.TabIndex = 4
+        Me.LabelPlayer1.Text = "ゲスト１"
+        Me.LabelPlayer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label2
+        '
+        Me.Label2.Location = New System.Drawing.Point(496, 48)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(100, 23)
+        Me.Label2.TabIndex = 5
+        Me.Label2.Text = "ゲスト２"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PBCurrentPlayer
+        '
+        Me.PBCurrentPlayer.Location = New System.Drawing.Point(288, 56)
+        Me.PBCurrentPlayer.Name = "PBCurrentPlayer"
+        Me.PBCurrentPlayer.Size = New System.Drawing.Size(80, 80)
+        Me.PBCurrentPlayer.TabIndex = 6
+        Me.PBCurrentPlayer.TabStop = False
+        '
         'GameForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(782, 753)
+        Me.Controls.Add(Me.PBCurrentPlayer)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.LabelPlayer1)
         Me.Controls.Add(Me.TextBoxWhite)
         Me.Controls.Add(Me.TextBoxBlack)
         Me.Controls.Add(Me.PBBoard)
@@ -109,6 +144,7 @@ Partial Class GameForm
         CType(Me.PBBoard, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.PBCurrentPlayer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -121,4 +157,7 @@ Partial Class GameForm
     Friend WithEvents TextBoxBlack As TextBox
     Friend WithEvents TextBoxWhite As TextBox
     Friend WithEvents MenuNewGame As ToolStripMenuItem
+    Friend WithEvents LabelPlayer1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents PBCurrentPlayer As PictureBox
 End Class

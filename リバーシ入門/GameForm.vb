@@ -4,9 +4,11 @@
     Private currentPos As System.Windows.Point
 
     Private gu As GraphicUtility
+    Private crtPly As GraphicUtility
 
     Private Sub GameForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         board = New Board()
+        board.SetMovablePos()
         rowBoard = board.GetRowBoard
 
         With PBBoard
@@ -17,6 +19,13 @@
             gu = New GraphicUtility(PBBoard, rowBoard, 0, .Width, 0, .Height)
         End With
 
+        With PBCurrentPlayer
+            .BorderStyle = BorderStyle.Fixed3D
+            crtPly = New GraphicUtility(PBCurrentPlayer, rowBoard, 0, .Width, 0, .Height)
+        End With
+
+        crtPly.ShowCurrentPlayer(board.getCurrentColor())
+
         ShowCount()
         Game()
     End Sub
@@ -26,8 +35,10 @@
     Private Sub PBBoard_MouseClick(sender As Object, e As MouseEventArgs) Handles PBBoard.MouseClick
         currentPos = gu.ConvertClickToBoardPos(e.X, e.Y)
         If board.move(currentPos) Then
+            board.SetMovablePos()
             rowBoard = board.GetRowBoard
             gu.RewriteBoard(rowBoard)
+            crtPly.ShowCurrentPlayer(board.getCurrentColor())
             ShowCount()
         End If
     End Sub
@@ -60,6 +71,7 @@
         End If
         If dr = DialogResult.Yes Then
             board.init()
+            board.SetMovablePos()
             rowBoard = board.GetRowBoard()
             gu.RewriteBoard(rowBoard)
             ShowCount()
