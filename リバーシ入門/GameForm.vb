@@ -60,8 +60,37 @@
     Private Sub Game()
 
         If board.isGameOver() Then
-            Exit Sub
+            Dim dr As DialogResult = DialogResult.None
+            Dim winner As String = GetWinner()
+            MsgBox(winner)
+            If winner = "draw" Then
+                dr = MessageBox.Show("引き分けです。", "結果", MessageBoxButtons.OK)
+            Else
+                Dim winPlayer As String = IIf(winner = "Player1", LabelPlayer1, LabelPlayer2).Text
+                dr = MessageBox.Show(winPlayer & "さんの勝ちです。", "結果", MessageBoxButtons.OK)
+            End If
+            If dr = DialogResult.OK Then Exit Sub
         End If
+    End Sub
+
+    ' *****************************************************************
+    ' 勝者の判定
+    Private Function GetWinner() As String
+        Dim winner As String = ""
+        If TextBoxBlack.Text = TextBoxWhite.Text Then
+            winner = "draw"
+        Else
+            winner = IIf(CInt(TextBoxBlack.Text) > CInt(TextBoxWhite.Text), "Player1", "Player2")
+        End If
+        Return winner
+    End Function
+
+    Private Sub ButtonPass_Click(sender As Object, e As EventArgs) Handles ButtonPass.Click
+        If Not board.pass() Then MessageBox.Show("パスできません。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+    End Sub
+
+    Private Sub ButtonUndo_Click(sender As Object, e As EventArgs) Handles ButtonUndo.Click
+        If Not board.undo() Then MessageBox.Show("一手戻れません。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
     End Sub
 
     Private Sub MenuNewGame_Click(sender As Object, e As EventArgs) Handles MenuNewGame.Click

@@ -30,8 +30,10 @@ Partial Class GameForm
         Me.TextBoxWhite = New System.Windows.Forms.TextBox()
         Me.MenuNewGame = New System.Windows.Forms.ToolStripMenuItem()
         Me.LabelPlayer1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.LabelPlayer2 = New System.Windows.Forms.Label()
         Me.PBCurrentPlayer = New System.Windows.Forms.PictureBox()
+        Me.ButtonPass = New System.Windows.Forms.Button()
+        Me.ButtonUndo = New System.Windows.Forms.Button()
         CType(Me.PBBoard, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PBCurrentPlayer, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -109,14 +111,14 @@ Partial Class GameForm
         Me.LabelPlayer1.Text = "ゲスト１"
         Me.LabelPlayer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label2
+        'LabelPlayer2
         '
-        Me.Label2.Location = New System.Drawing.Point(496, 48)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(100, 23)
-        Me.Label2.TabIndex = 5
-        Me.Label2.Text = "ゲスト２"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.LabelPlayer2.Location = New System.Drawing.Point(496, 48)
+        Me.LabelPlayer2.Name = "LabelPlayer2"
+        Me.LabelPlayer2.Size = New System.Drawing.Size(100, 23)
+        Me.LabelPlayer2.TabIndex = 5
+        Me.LabelPlayer2.Text = "ゲスト２"
+        Me.LabelPlayer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PBCurrentPlayer
         '
@@ -126,13 +128,33 @@ Partial Class GameForm
         Me.PBCurrentPlayer.TabIndex = 6
         Me.PBCurrentPlayer.TabStop = False
         '
+        'ButtonPass
+        '
+        Me.ButtonPass.Location = New System.Drawing.Point(64, 688)
+        Me.ButtonPass.Name = "ButtonPass"
+        Me.ButtonPass.Size = New System.Drawing.Size(152, 63)
+        Me.ButtonPass.TabIndex = 7
+        Me.ButtonPass.Text = "パス"
+        Me.ButtonPass.UseVisualStyleBackColor = True
+        '
+        'ButtonUndo
+        '
+        Me.ButtonUndo.Location = New System.Drawing.Point(440, 688)
+        Me.ButtonUndo.Name = "ButtonUndo"
+        Me.ButtonUndo.Size = New System.Drawing.Size(152, 63)
+        Me.ButtonUndo.TabIndex = 8
+        Me.ButtonUndo.Text = "待った"
+        Me.ButtonUndo.UseVisualStyleBackColor = True
+        '
         'GameForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(782, 753)
+        Me.ClientSize = New System.Drawing.Size(782, 779)
+        Me.Controls.Add(Me.ButtonUndo)
+        Me.Controls.Add(Me.ButtonPass)
         Me.Controls.Add(Me.PBCurrentPlayer)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.LabelPlayer2)
         Me.Controls.Add(Me.LabelPlayer1)
         Me.Controls.Add(Me.TextBoxWhite)
         Me.Controls.Add(Me.TextBoxBlack)
@@ -158,6 +180,8 @@ Partial Class GameForm
     Friend WithEvents TextBoxWhite As TextBox
     Friend WithEvents MenuNewGame As ToolStripMenuItem
     Friend WithEvents LabelPlayer1 As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents LabelPlayer2 As Label
     Friend WithEvents PBCurrentPlayer As PictureBox
+    Friend WithEvents ButtonPass As Button
+    Friend WithEvents ButtonUndo As Button
 End Class

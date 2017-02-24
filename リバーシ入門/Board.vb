@@ -392,6 +392,8 @@ Public Class Board
         discs.Data(-currentColor) -= discdiff - 1
         ' 空きマスを一マス減らす
         discs.Data(Disc.SquareState.EMPTY) -= 1
+
+        updateLog.Add(update)
 #End Region
     End Sub
 
@@ -461,11 +463,11 @@ Public Class Board
 
         currentColor = -currentColor
 
-        updateLog.RemoveAt(updateLog.Count - 1)
+        'updateLog.RemoveAt(updateLog.Count)
         Dim update As ArrayList = updateLog
 
         ' 前回がパスかどうか
-        If update Is Nothing Then
+        If update.Count = 0 Then
             MovablePos(turns).Clear()
             ' MovablePos と MovableDir を再構築
             For x As Integer = 0 To BOARD_SIZE
@@ -476,7 +478,8 @@ Public Class Board
         Else
             turns -= 1
             ' 石を元に戻す
-            Dim p As Point = update.Item(0)
+            'Dim d As Disc = update.Item(0)
+            Dim p As Point = d.RPoint()
             RowBoard(p.X, p.Y) = Disc.SquareState.EMPTY
             For i As Integer = 1 To update.Count - 1
                 p = update.Item(i)
