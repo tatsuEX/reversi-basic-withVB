@@ -27,7 +27,8 @@
         crtPly.ShowCurrentPlayer(board.getCurrentColor())
 
         ShowCount()
-        Game()
+        ButtonPass.Enabled = board.enablePass()
+        endGame()
     End Sub
 
     ' *****************************************************************
@@ -55,7 +56,8 @@
             ShowCount()
             DebugBoardState()
         End If
-        Game()
+        ButtonPass.Enabled = board.enablePass()
+        endGame()
     End Sub
 
     Private Sub ShowCount()
@@ -71,13 +73,13 @@
     End Sub
 
     ' *****************************************************************
-    ' ゲーム本体
-    Private Sub Game()
+    ' ゲーム結果
+    Private Sub endGame()
 
         If board.isGameOver() Then
             Dim dr As DialogResult = DialogResult.None
             Dim winner As String = GetWinner()
-            MsgBox(winner)
+
             If winner = "draw" Then
                 dr = MessageBox.Show("引き分けです。", "結果", MessageBoxButtons.OK)
             Else

@@ -456,10 +456,26 @@ Public Class Board
     End Function
 
     ' *****************************************************************
+    ' パス可能判定（パスの実行は行わず、あくまで判定）
+    Public Function enablePass() As Boolean
+        ' 打つ手があるならパスはできない
+        If MovablePos(turns).Count > 0 Then Return False
+
+        ' ゲームが終了しているならパスはできない
+        If isGameOver() Then Return False
+
+        ' それ以外
+        Return True
+    End Function
+
+    ' *****************************************************************
     ' 前に戻る
     Public Function undo() As Boolean
         ' 1ターン目
         If turns = 0 Then Return False
+
+        ' ゲーム終了
+        If isGameOver() Then Return False
 
         currentColor = -currentColor
 
