@@ -483,9 +483,10 @@ Public Class Board
             updateLog.RemoveAt(updateLog.Count - 1)
         End If
         Dim update As ArrayList = updateLog
+        Dim discdiff As Integer = update.Count
 
         ' 前回がパスかどうか
-        If update.Count = 0 Then
+        If discdiff = 0 Then
             MovablePos(turns).Clear()
             ' MovablePos と MovableDir を再構築
             For x As Integer = 0 To BOARD_SIZE
@@ -504,6 +505,10 @@ Public Class Board
                 RowBoard(p.X, p.Y) = -currentColor
             Next i
         End If
+
+        discs.Data(currentColor) -= discdiff + 1
+        discs.Data(-currentColor) += discdiff
+        discs.Data(Disc.SquareState.EMPTY) += 1
         Return True
     End Function
 #End Region

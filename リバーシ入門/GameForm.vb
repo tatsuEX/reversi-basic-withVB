@@ -25,8 +25,10 @@
         End With
 
         crtPly.ShowCurrentPlayer(board.getCurrentColor())
-
         ShowCount()
+
+        DebugBoardState()
+
         ButtonPass.Enabled = board.enablePass()
         endGame()
     End Sub
@@ -111,6 +113,7 @@
             gu.RewriteBoard(rowBoard)
             crtPly.ShowCurrentPlayer(board.getCurrentColor())
             ShowCount()
+            DebugBoardState()
         End If
     End Sub
 
@@ -123,6 +126,7 @@
             gu.RewriteBoard(rowBoard)
             crtPly.ShowCurrentPlayer(board.getCurrentColor())
             ShowCount()
+            DebugBoardState()
         End If
     End Sub
 
@@ -137,6 +141,7 @@
             rowBoard = board.GetRowBoard()
             gu.RewriteBoard(rowBoard)
             ShowCount()
+            DebugBoardState()
         End If
     End Sub
 
