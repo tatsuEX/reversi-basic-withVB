@@ -31,6 +31,19 @@
     End Sub
 
     ' *****************************************************************
+    ' ボード情報の表示
+    Private Sub DebugBoardState()
+        Dim state As String = "+---------------------------+" & vbCrLf
+        For i As Integer = 1 To Board.BOARD_SIZE
+            For j As Integer = 1 To Board.BOARD_SIZE
+                state &= String.Format("|{0, 4}", rowBoard(j, i))
+            Next j
+            state &= "|" & vbCrLf & "+---------------------------+" & vbCrLf
+        Next i
+        TBState.Text = state
+    End Sub
+
+    ' *****************************************************************
     ' クリック座標からボード位置を取得
     Private Sub PBBoard_MouseClick(sender As Object, e As MouseEventArgs) Handles PBBoard.MouseClick
         currentPos = gu.ConvertClickToBoardPos(e.X, e.Y)
@@ -40,7 +53,9 @@
             gu.RewriteBoard(rowBoard)
             crtPly.ShowCurrentPlayer(board.getCurrentColor())
             ShowCount()
+            DebugBoardState()
         End If
+        Game()
     End Sub
 
     Private Sub ShowCount()
@@ -86,11 +101,27 @@
     End Function
 
     Private Sub ButtonPass_Click(sender As Object, e As EventArgs) Handles ButtonPass.Click
-        If Not board.pass() Then MessageBox.Show("パスできません。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        If Not board.pass() Then
+            MessageBox.Show("パスできません。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        Else
+            board.SetMovablePos()
+            rowBoard = board.GetRowBoard
+            gu.RewriteBoard(rowBoard)
+            crtPly.ShowCurrentPlayer(board.getCurrentColor())
+            ShowCount()
+        End If
     End Sub
 
     Private Sub ButtonUndo_Click(sender As Object, e As EventArgs) Handles ButtonUndo.Click
-        If Not board.undo() Then MessageBox.Show("一手戻れません。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        If Not board.undo() Then
+            MessageBox.Show("一手戻れません。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        Else
+            board.SetMovablePos()
+            rowBoard = board.GetRowBoard
+            gu.RewriteBoard(rowBoard)
+            crtPly.ShowCurrentPlayer(board.getCurrentColor())
+            ShowCount()
+        End If
     End Sub
 
     Private Sub MenuNewGame_Click(sender As Object, e As EventArgs) Handles MenuNewGame.Click

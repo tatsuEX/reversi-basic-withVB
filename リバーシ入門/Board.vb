@@ -463,7 +463,9 @@ Public Class Board
 
         currentColor = -currentColor
 
-        'updateLog.RemoveAt(updateLog.Count)
+        If updateLog.Count > 1 Then
+            updateLog.RemoveAt(updateLog.Count - 1)
+        End If
         Dim update As ArrayList = updateLog
 
         ' 前回がパスかどうか
@@ -478,11 +480,11 @@ Public Class Board
         Else
             turns -= 1
             ' 石を元に戻す
-            'Dim d As Disc = update.Item(0)
+            Dim d As Disc = update(0).Item(0)
             Dim p As Point = d.RPoint()
             RowBoard(p.X, p.Y) = Disc.SquareState.EMPTY
             For i As Integer = 1 To update.Count - 1
-                p = update.Item(i)
+                p = DirectCast(update(i).Item(0), Disc).RPoint()
                 RowBoard(p.X, p.Y) = -currentColor
             Next i
         End If

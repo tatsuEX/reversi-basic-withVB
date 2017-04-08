@@ -25,15 +25,16 @@ Partial Class GameForm
         Me.PBBoard = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ファイルFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuNewGame = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuQuit = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextBoxBlack = New System.Windows.Forms.TextBox()
         Me.TextBoxWhite = New System.Windows.Forms.TextBox()
-        Me.MenuNewGame = New System.Windows.Forms.ToolStripMenuItem()
         Me.LabelPlayer1 = New System.Windows.Forms.Label()
         Me.LabelPlayer2 = New System.Windows.Forms.Label()
         Me.PBCurrentPlayer = New System.Windows.Forms.PictureBox()
         Me.ButtonPass = New System.Windows.Forms.Button()
         Me.ButtonUndo = New System.Windows.Forms.Button()
+        Me.TBState = New System.Windows.Forms.TextBox()
         CType(Me.PBBoard, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PBCurrentPlayer, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,7 +54,7 @@ Partial Class GameForm
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ファイルFToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(782, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1328, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -63,6 +64,13 @@ Partial Class GameForm
         Me.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem"
         Me.ファイルFToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
         Me.ファイルFToolStripMenuItem.Text = "ファイル(&F)"
+        '
+        'MenuNewGame
+        '
+        Me.MenuNewGame.Name = "MenuNewGame"
+        Me.MenuNewGame.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
+        Me.MenuNewGame.Size = New System.Drawing.Size(228, 26)
+        Me.MenuNewGame.Text = "新しいゲーム(&N)"
         '
         'MenuQuit
         '
@@ -94,13 +102,6 @@ Partial Class GameForm
         Me.TextBoxWhite.TabIndex = 3
         Me.TextBoxWhite.TabStop = False
         Me.TextBoxWhite.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'MenuNewGame
-        '
-        Me.MenuNewGame.Name = "MenuNewGame"
-        Me.MenuNewGame.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-        Me.MenuNewGame.Size = New System.Drawing.Size(228, 26)
-        Me.MenuNewGame.Text = "新しいゲーム(&N)"
         '
         'LabelPlayer1
         '
@@ -146,11 +147,22 @@ Partial Class GameForm
         Me.ButtonUndo.Text = "待った"
         Me.ButtonUndo.UseVisualStyleBackColor = True
         '
+        'TBState
+        '
+        Me.TBState.Location = New System.Drawing.Point(824, 176)
+        Me.TBState.Multiline = True
+        Me.TBState.Name = "TBState"
+        Me.TBState.ReadOnly = True
+        Me.TBState.Size = New System.Drawing.Size(304, 312)
+        Me.TBState.TabIndex = 9
+        Me.TBState.TabStop = False
+        '
         'GameForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(782, 779)
+        Me.ClientSize = New System.Drawing.Size(1328, 779)
+        Me.Controls.Add(Me.TBState)
         Me.Controls.Add(Me.ButtonUndo)
         Me.Controls.Add(Me.ButtonPass)
         Me.Controls.Add(Me.PBCurrentPlayer)
@@ -184,4 +196,5 @@ Partial Class GameForm
     Friend WithEvents PBCurrentPlayer As PictureBox
     Friend WithEvents ButtonPass As Button
     Friend WithEvents ButtonUndo As Button
+    Friend WithEvents TBState As TextBox
 End Class
