@@ -35,6 +35,8 @@ Partial Class GameForm
         Me.ButtonPass = New System.Windows.Forms.Button()
         Me.ButtonUndo = New System.Windows.Forms.Button()
         Me.TBState = New System.Windows.Forms.TextBox()
+        Me.オプションOToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuOptionDebug = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.PBBoard, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PBCurrentPlayer, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -51,10 +53,10 @@ Partial Class GameForm
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ファイルFToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ファイルFToolStripMenuItem, Me.オプションOToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1328, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(782, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -156,12 +158,26 @@ Partial Class GameForm
         Me.TBState.Size = New System.Drawing.Size(304, 312)
         Me.TBState.TabIndex = 9
         Me.TBState.TabStop = False
+        Me.TBState.Visible = False
+        '
+        'オプションOToolStripMenuItem
+        '
+        Me.オプションOToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuOptionDebug})
+        Me.オプションOToolStripMenuItem.Name = "オプションOToolStripMenuItem"
+        Me.オプションOToolStripMenuItem.Size = New System.Drawing.Size(95, 24)
+        Me.オプションOToolStripMenuItem.Text = "オプション(&O)"
+        '
+        'MenuOptionDebug
+        '
+        Me.MenuOptionDebug.Name = "MenuOptionDebug"
+        Me.MenuOptionDebug.Size = New System.Drawing.Size(181, 26)
+        Me.MenuOptionDebug.Text = "デバッグモード"
         '
         'GameForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1328, 779)
+        Me.ClientSize = New System.Drawing.Size(782, 779)
         Me.Controls.Add(Me.TBState)
         Me.Controls.Add(Me.ButtonUndo)
         Me.Controls.Add(Me.ButtonPass)
@@ -197,4 +213,6 @@ Partial Class GameForm
     Friend WithEvents ButtonPass As Button
     Friend WithEvents ButtonUndo As Button
     Friend WithEvents TBState As TextBox
+    Friend WithEvents オプションOToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MenuOptionDebug As ToolStripMenuItem
 End Class

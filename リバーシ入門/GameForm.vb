@@ -24,6 +24,8 @@
             crtPly = New GraphicUtility(PBCurrentPlayer, rowBoard, 0, .Width, 0, .Height)
         End With
 
+        Me.Width = 520
+
         crtPly.ShowCurrentPlayer(board.getCurrentColor())
         ShowCount()
 
@@ -148,5 +150,16 @@
     Private Sub MenuQuit_Click(sender As Object, e As EventArgs) Handles MenuQuit.Click, Me.FormClosed
         Me.Dispose()
         Environment.Exit(0)
+    End Sub
+
+    Private Sub MenuOptionDebug_Click(sender As Object, e As EventArgs) Handles MenuOptionDebug.Click
+        If MenuOptionDebug.Checked Then
+            MenuOptionDebug.Checked = False
+            Me.Width = 520
+        Else
+            MenuOptionDebug.Checked = True
+            Me.Width = 900
+        End If
+        TBState.Visible = MenuOptionDebug.Checked
     End Sub
 End Class
